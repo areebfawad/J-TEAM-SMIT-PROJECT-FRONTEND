@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* dashboard */
+
+/* Sidebar */
+.sidebar {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Dropdown Animation */
+  .slide-down {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  .slide-up {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+  /* Hover Effects */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #2563eb; /* Tailwind blue-500 */
+  }
+  

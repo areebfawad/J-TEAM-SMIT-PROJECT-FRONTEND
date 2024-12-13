@@ -1,11 +1,8 @@
+import React from "react";
+import AdminRoutes from "./AdminRoutes";
 
-export default function Admin() {
-    return (
-      <div>
-        <h1>Admin</h1>
-      </div>
-    );
-  }
-  
-  
-  
+const Admin = () => {
+  return <AdminRoutes />;
+};
+
+export default Admin;
