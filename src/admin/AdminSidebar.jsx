@@ -34,6 +34,7 @@ const AdminSidebar = () => {
       </h2>
       <ul className="space-y-4">
         {/* Course Management */}
+        
         <li>
           <div
             className="flex justify-between items-center cursor-pointer"
