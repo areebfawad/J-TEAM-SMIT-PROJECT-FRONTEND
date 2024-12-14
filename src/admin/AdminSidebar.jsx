@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  FaBook,
+  FaUserGraduate,
+  FaChalkboardTeacher,
+  FaBell,
+  FaBars,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(true); // State for sidebar toggle
@@ -16,39 +25,54 @@ const AdminSidebar = () => {
   return (
     <div
       className={`${
-        isOpen ? "w-64" : "w-16"
+        isOpen ? "w-64" : "w-20"
       } bg-gray-900 text-white h-screen p-4 transition-all duration-300 flex flex-col`}
     >
+      {/* Toggle Sidebar Button */}
       <button
-        className="text-xl mb-6 focus:outline-none"
+        className="text-xl mb-6 focus:outline-none flex items-center"
         onClick={toggleSidebar}
       >
-        {isOpen ? "←" : "→"}
+        <FaBars className="mr-2" />
+        <span className={isOpen ? "block" : "hidden"}>Menu</span>
       </button>
+
+      {/* Sidebar Header */}
       <h2
-        className={`text-2xl font-bold mb-6 ${
+        className={`text-2xl font-bold mb-6 flex items-center ${
           isOpen ? "block" : "hidden"
-        } transition-all`}
+        }`}
       >
         Admin Panel
       </h2>
+
+      {/* Sidebar Options */}
       <ul className="space-y-4">
         {/* Course Management */}
-        
         <li>
           <div
-            className="flex justify-between items-center cursor-pointer"
+            className="flex justify-between items-center cursor-pointer hover:bg-gray-800 p-2 rounded"
             onClick={() => toggleParent("courses")}
           >
-            <span className={isOpen ? "block" : "hidden"}>Course Management</span>
-            {isOpen && <span>{openParent === "courses" ? "▲" : "▼"}</span>}
+            <div className="flex items-center">
+              <FaBook className="text-lg mr-3" />
+              <span className={isOpen ? "block" : "hidden"}>
+                Course Management
+              </span>
+            </div>
+            {isOpen &&
+              (openParent === "courses" ? (
+                <FaChevronUp />
+              ) : (
+                <FaChevronDown />
+              ))}
           </div>
           {openParent === "courses" && isOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>
+            <ul className="pl-8 space-y-2">
+              <li className="hover:text-gray-300">
                 <Link to="/admin/courses">View Courses</Link>
               </li>
-              <li>
+              <li className="hover:text-gray-300">
                 <Link to="/admin/courses/add">Add Course</Link>
               </li>
             </ul>
@@ -58,21 +82,32 @@ const AdminSidebar = () => {
         {/* Student Management */}
         <li>
           <div
-            className="flex justify-between items-center cursor-pointer"
+            className="flex justify-between items-center cursor-pointer hover:bg-gray-800 p-2 rounded"
             onClick={() => toggleParent("students")}
           >
-            <span className={isOpen ? "block" : "hidden"}>
-              Student Management
-            </span>
-            {isOpen && <span>{openParent === "students" ? "▲" : "▼"}</span>}
+            <div className="flex items-center">
+              <FaUserGraduate className="text-lg mr-3" />
+              <span className={isOpen ? "block" : "hidden"}>
+                Student Management
+              </span>
+            </div>
+            {isOpen &&
+              (openParent === "students" ? (
+                <FaChevronUp />
+              ) : (
+                <FaChevronDown />
+              ))}
           </div>
           {openParent === "students" && isOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>
+            <ul className="pl-8 space-y-2">
+              <li className="hover:text-gray-300">
                 <Link to="/admin/students">View Students</Link>
               </li>
-              <li>
+              <li className="hover:text-gray-300">
                 <Link to="/admin/students/merge">Merge Students</Link>
+              </li>
+              <li className="hover:text-gray-300">
+                <Link to="/admin/students/approve">Approve Enrollments</Link>
               </li>
             </ul>
           )}
@@ -81,32 +116,39 @@ const AdminSidebar = () => {
         {/* Teacher Management */}
         <li>
           <div
-            className="flex justify-between items-center cursor-pointer"
+            className="flex justify-between items-center cursor-pointer hover:bg-gray-800 p-2 rounded"
             onClick={() => toggleParent("teachers")}
           >
-            <span className={isOpen ? "block" : "hidden"}>
-              Teacher Management
-            </span>
-            {isOpen && <span>{openParent === "teachers" ? "▲" : "▼"}</span>}
+            <div className="flex items-center">
+              <FaChalkboardTeacher className="text-lg mr-3" />
+              <span className={isOpen ? "block" : "hidden"}>
+                Teacher Management
+              </span>
+            </div>
+            {isOpen &&
+              (openParent === "teachers" ? (
+                <FaChevronUp />
+              ) : (
+                <FaChevronDown />
+              ))}
           </div>
           {openParent === "teachers" && isOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>
+            <ul className="pl-8 space-y-2">
+              <li className="hover:text-gray-300">
                 <Link to="/admin/teachers">View Teachers</Link>
               </li>
-              <li>
-                <Link to="/admin/teachers/reports">View Reports</Link>
+              <li className="hover:text-gray-300">
+                <Link to="/admin/teachers/reports">Teacher Reports</Link>
               </li>
             </ul>
           )}
         </li>
 
         {/* Notifications */}
-        <li>
-          <Link to="/admin/notifications">
-            <span className={isOpen ? "block" : "hidden"}>
-              Notifications
-            </span>
+        <li className="hover:bg-gray-800 p-2 rounded">
+          <Link to="/admin/notifications" className="flex items-center">
+            <FaBell className="text-lg mr-3" />
+            <span className={isOpen ? "block" : "hidden"}>Notifications</span>
           </Link>
         </li>
       </ul>
