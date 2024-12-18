@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminDashboard from "./AdminDashboard";
 import CourseList from "./components/CourseManagement/CourseList";
-import AddCourse from "./components/CourseManagement/AddCouses";
+import AddCourse from "./components/CourseManagement/AddCourses";
 import StudentList from "./components/StudentManagement/StudentList";
 import ApproveEnrollment from "./components/StudentManagement/ApproveEnrollment";
 import MergeStudents from "./components/StudentManagement/MergeStudents";
