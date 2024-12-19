@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const CourseList = () => {
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [courses, setCourses] = useState([]); // Course data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(""); // Error state
+  const [searchQuery, setSearchQuery] = useState(""); // Search input
+  const [sortOrder, setSortOrder] = useState("asc"); // Sort order
+  const [currentPage, setCurrentPage] = useState(1); // Pagination
+  const [itemsPerPage] = useState(5); // Courses per page
 
-  // Fetch data
+  // Fetch courses
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/courses");
+        const response = await axios.get("/courses");
         setCourses(response.data);
+        setError("");
       } catch (err) {
         console.error("Error fetching courses:", err);
-        setError("Failed to load courses. Please try again later.");
+        setError("Failed to load courses.");
       } finally {
         setLoading(false);
       }
@@ -27,24 +28,20 @@ const CourseList = () => {
     fetchCourses();
   }, []);
 
-  // Filter courses based on search query
-  const filteredCourses = courses.filter((course) => {
-    const courseName = course.name || ""; // Ensure `name` is a string
-    return courseName.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  // Filter courses by search query
+  const filteredCourses = courses.filter((course) =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Sort courses
   const sortedCourses = [...filteredCourses].sort((a, b) => {
-    const nameA = a.name || ""; // Ensure `name` is a string
-    const nameB = b.name || ""; // Ensure `name` is a string
-    return sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
   });
 
   // Pagination logic
   const indexOfLastCourse = currentPage * itemsPerPage;
   const indexOfFirstCourse = indexOfLastCourse - itemsPerPage;
   const currentCourses = sortedCourses.slice(indexOfFirstCourse, indexOfLastCourse);
-
   const totalPages = Math.ceil(sortedCourses.length / itemsPerPage);
 
   const handleNextPage = () => {
@@ -79,10 +76,19 @@ const CourseList = () => {
       </div>
 
       {/* Loading State */}
-      {loading && <p className="text-gray-500">Loading courses...</p>}
+      {loading && (
+        <div className="text-center my-6">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+          <p className="text-gray-500 mt-2">Loading courses...</p>
+        </div>
+      )}
 
       {/* Error State */}
-      {error && <p className="text-red-500">{error}</p>}
+      {error && (
+        <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
+          {error}
+        </div>
+      )}
 
       {/* Course List */}
       {!loading && !error && currentCourses.length > 0 && (
@@ -91,11 +97,14 @@ const CourseList = () => {
             <li key={course.id} className="p-4 hover:bg-gray-100 transition-all rounded">
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-700">{course.name || "Unnamed Course"}</h3>
-                  <p className="text-sm text-gray-500">{course.description || "No description available."}</p>
-                  <p className="text-sm text-gray-600">Duration: {course.duration || "N/A"}</p>
+                  <h3 className="text-xl font-semibold text-gray-700">{course.name}</h3>
+                  <p className="text-sm text-gray-500">{course.description}</p>
+                  <p className="text-sm text-gray-600">Duration: {course.duration}</p>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-all">
+                <button
+                  onClick={() => alert(`Details of ${course.name}`)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-all"
+                >
                   View Details
                 </button>
               </div>
