@@ -11,27 +11,34 @@ const CourseList = () => {
   const [itemsPerPage] = useState(5); // Courses per page
 
   // Fetch courses
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get("/courses");
-        setCourses(response.data);
-        setError("");
-      } catch (err) {
-        console.error("Error fetching courses:", err);
-        setError("Failed to load courses.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourses();
-  }, []);
+  
+    useEffect(() => {
+      const fetchCourses = async () => {
+        try {
+          const response = await axios.get("/api/courses"); // Use "/api" if proxy is configured
+          if (Array.isArray(response.data)) {
+            setCourses(response.data);
+          } else {
+            console.error("API response is not an array:", response.data);
+            setError("Unexpected API response format.");
+          }
+        } catch (err) {
+          console.error("Error fetching courses:", err);
+          setError("Failed to load courses. Please check the API.");
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchCourses();
+    }, []);
 
   // Filter courses by search query
-  const filteredCourses = courses.filter((course) =>
-    course.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCourses = Array.isArray(courses)
+    ? courses.filter((course) =>
+        course.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   // Sort courses
   const sortedCourses = [...filteredCourses].sort((a, b) => {

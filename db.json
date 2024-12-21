@@ -23,6 +23,22 @@
       "name": "CSS Advanced Techniques",
       "description": "Learn CSS animations and layouts",
       "duration": "10 Hours"
+    },
+    {
+      "id": "61cf",
+      "name": "smm",
+      "description": "jadnw",
+      "duration": "232",
+      "category": "Web Development",
+      "instructor": "Jane Smith"
+    },
+    {
+      "id": "9e45",
+      "name": "react js",
+      "description": "react js",
+      "duration": "22",
+      "category": "Web Development",
+      "instructor": "Jane Smith"
     }
   ],
   "students": [
