@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Admin from "./admin/admin";
-import User from "./user/user";
+import User from "./user/UserDashboard";
 import Teacher from "./teacher/teacher";
 import { Signup } from "./signup";
 
