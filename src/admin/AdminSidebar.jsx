@@ -32,10 +32,10 @@ const AdminSidebar = () => {
       {/* Sidebar Toggle */}
       <button
         onClick={toggleSidebar}
-        className="flex items-center mb-6 text-lg focus:outline-none"
+        className="flex items-center mb-6 ml-2 text-lg focus:outline-none"
       >
         <FaBars className="mr-2" />
-        {isOpen && <span>Menu</span>}
+        {isOpen && <span className="ml-1">Menu</span>}
       </button>
 
       {/* Sidebar Links */}
