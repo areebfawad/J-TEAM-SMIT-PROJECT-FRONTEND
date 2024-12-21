@@ -25,26 +25,27 @@
       "duration": "10 Hours"
     },
     {
-      "id": "0ced"
+      "id": "61cf",
+      "name": "smm",
+      "description": "jadnw",
+      "duration": "232",
+      "category": "Web Development",
+      "instructor": "Jane Smith"
+    },
+    {
+      "id": "9e45",
+      "name": "react js",
+      "description": "react js",
+      "duration": "22",
+      "category": "Web Development",
+      "instructor": "Jane Smith"
     }
   ],
   "students": [
     {
-      "id": "1",
-      "name": "Alice Johnson",
+      "name": "Alice Johnso",
       "email": "alice@example.com",
-      "enrolledCourses": [
-        1
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Bob Williams",
-      "email": "bob@example.com",
-      "enrolledCourses": [
-        2,
-        3
-      ]
+      "id": "1"
     },
     {
       "id": "3",
@@ -59,9 +60,6 @@
       "enrolledCourses": [
         4
       ]
-    },
-    {
-      "id": "b1dc"
     }
   ],
   "teachers": [
@@ -110,10 +108,30 @@
       "courseId": 3
     },
     {
-      "id": "53b9",
-      "teacherId": "2",
-      "courseId": "1",
-      "assignedAt": "2024-12-18T13:00:35.312Z"
+      "id": "4",
+      "title": "CSS Layout Techniques",
+      "status": "in-progress",
+      "courseId": 4
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "1",
+      "title": "React Basics Quiz",
+      "courseId": 1,
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "title": "Advanced JS Quiz",
+      "courseId": 2,
+      "status": "pending"
+    },
+    {
+      "id": "3",
+      "title": "Node.js Quiz",
+      "courseId": 3,
+      "status": "pending"
     }
   ],
   "notifications": [
@@ -128,6 +146,11 @@
     {
       "id": "3",
       "message": "New course available: CSS Advanced Techniques"
+    },
+    {
+      "id": "4",
+      "message": "Dear student, today class has been postponed due to unforeseen reasons",
+      "recipient": "students"
     }
   ]
 }

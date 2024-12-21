@@ -9,3 +9,7 @@ body {
 button {
   @apply bg-gray-800 text-white p-2 rounded hover:bg-gray-700 transition-all;
 }
+
+input {
+  @apply border border-gray-300 p-2 rounded;
+}

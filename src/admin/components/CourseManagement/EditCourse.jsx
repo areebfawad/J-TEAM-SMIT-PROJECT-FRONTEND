@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom"; // For dynamic routing and navigation
 
-const EditCourse = ({ courseId }) => {
+const EditCourse = () => {
+  const { courseId } = useParams(); // Get courseId from the URL
+  const navigate = useNavigate(); // For redirection after successful update
   const [course, setCourse] = useState({
     name: "",
     description: "",
@@ -15,23 +18,23 @@ const EditCourse = ({ courseId }) => {
 
   const categories = ["Web Development", "Data Science", "Machine Learning", "UI/UX Design"];
 
-  // Handle invalid courseId
-  if (!courseId) {
-    return <p className="text-red-500 text-center mt-8">Error: Course ID is missing.</p>;
-  }
-
   // Fetch course details
   useEffect(() => {
     const fetchCourse = async () => {
-      setLoading(true);
-      setError("");
+      if (!courseId) {
+        setError("Course ID is missing. Please check the URL.");
+        setLoading(false);
+        return;
+      }
       try {
+        setLoading(true);
         const response = await axios.get(`http://localhost:3000/courses/${courseId}`);
         setCourse(response.data);
-        setInitialData(response.data); // Store initial data for reset
+        setInitialData(response.data);
+        setError("");
       } catch (err) {
-        console.error("Error fetching course details:", err);
         setError("Failed to fetch course details. Please check the course ID or try again.");
+        console.error("Error fetching course details:", err);
       } finally {
         setLoading(false);
       }
@@ -51,10 +54,10 @@ const EditCourse = ({ courseId }) => {
     try {
       await axios.put(`http://localhost:3000/courses/${courseId}`, course);
       setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000); // Hide success after 3s
+      setTimeout(() => setSuccess(false), 3000); // Hide success message after 3 seconds
     } catch (err) {
-      console.error("Error updating course:", err);
       setError("Failed to update the course. Please try again.");
+      console.error("Error updating course:", err);
     }
   };
 
@@ -71,11 +74,30 @@ const EditCourse = ({ courseId }) => {
     setSuccess(false);
   };
 
+  // Navigate back to the course list
+  const handleBack = () => {
+    navigate("/admin/courses");
+  };
+
   if (loading) {
     return (
       <div className="text-center mt-8">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 mx-auto"></div>
         <p className="text-gray-500 mt-4">Loading course details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center mt-8">
+        <p className="text-red-500">{error}</p>
+        <button
+          onClick={handleBack}
+          className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
+        >
+          Back to Courses
+        </button>
       </div>
     );
   }
@@ -83,9 +105,6 @@ const EditCourse = ({ courseId }) => {
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
       <h2 className="text-3xl font-bold mb-6 text-gray-700">Edit Course</h2>
-
-      {/* Error Message */}
-      {error && <p className="text-red-500 bg-red-100 p-2 rounded mb-4">{error}</p>}
 
       {/* Success Message */}
       {success && (
@@ -108,7 +127,6 @@ const EditCourse = ({ courseId }) => {
             onChange={handleChange}
             placeholder="Enter course name"
             className="border w-full p-2 rounded focus:ring-2 focus:ring-blue-500"
-            aria-label="Course Name"
             required
           />
         </div>
@@ -126,7 +144,6 @@ const EditCourse = ({ courseId }) => {
             placeholder="Enter course description"
             rows="3"
             className="border w-full p-2 rounded focus:ring-2 focus:ring-blue-500"
-            aria-label="Course Description"
             required
           ></textarea>
         </div>
@@ -144,7 +161,6 @@ const EditCourse = ({ courseId }) => {
             onChange={handleChange}
             placeholder="Enter duration"
             className="border w-full p-2 rounded focus:ring-2 focus:ring-blue-500"
-            aria-label="Course Duration"
             required
           />
         </div>
@@ -160,7 +176,6 @@ const EditCourse = ({ courseId }) => {
             value={course.category}
             onChange={handleChange}
             className="border w-full p-2 rounded focus:ring-2 focus:ring-blue-500"
-            aria-label="Course Category"
             required
           >
             <option value="">-- Select Category --</option>
@@ -189,6 +204,16 @@ const EditCourse = ({ courseId }) => {
           </button>
         </div>
       </form>
+
+      {/* Back Button */}
+      <div className="mt-6">
+        <button
+          onClick={handleBack}
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
+        >
+          Back to Courses
+        </button>
+      </div>
     </div>
   );
 };
