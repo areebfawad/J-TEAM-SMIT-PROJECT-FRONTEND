@@ -28,14 +28,9 @@ export default function Login() {
       } else {
         navigate("/user");
       }
-<<<<<<< Updated upstream
     } catch (err) {
       console.error("Error during login:", err.message);
       setError("Invalid email or password.");
-=======
-    } else {
-      setError("Invalid email or password,Please try again.");
->>>>>>> Stashed changes
     }
   };
 
