@@ -4,7 +4,11 @@ import Login from "./Login";
 import Admin from "./admin/admin";
 import User from "./user/UserDashboard";
 import Signup from "./signup";
+<<<<<<< Updated upstream
 
+=======
+// import Teacher from "./teacher/teacher";
+>>>>>>> Stashed changes
 
 function App() {
 

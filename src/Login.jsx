@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function Login() {
@@ -103,9 +103,9 @@ export default function Login() {
         <div className="text-center mt-4 text-gray-600">
           <p>
             Don't have an account?{" "}
-            <a href="/register" className="text-blue-500 hover:underline">
+            <Link to="/register" className="text-blue-500 hover:underline">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
